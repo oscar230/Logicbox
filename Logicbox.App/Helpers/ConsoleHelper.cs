@@ -48,7 +48,7 @@
             }
         }
 
-        internal static int Selection(object[] list, string? selectionText = null)
+        internal static int Selection(Array list, string? selectionText = null)
         {
             const int defaultSelectionValue = -1;
             const string defaultSelectionText = "Make you selection: ";
@@ -81,6 +81,16 @@
                 return 0;
             }
             return selection;
+        }
+
+        internal static void WriteList(Array list, string? prepend = null, string? append = null)
+        {
+            const string listStyle = "* ";
+            foreach (var item in list)
+	        {
+                PrimaryWrite($"{listStyle}");
+                WriteLine($"{prepend ?? string.Empty}{item}{append ?? string.Empty}");
+	        }
         }
     }
 }
