@@ -56,7 +56,7 @@
             {
                 throw new ArgumentNullException(nameof(list));
             }
-            WriteSelectionList(list);
+            WriteSelectionList((object[])list);
             int selection = defaultSelectionValue;
             while ((selection < 0 || selection > (list.Length - 1)) && list.Length > 1)
             {
