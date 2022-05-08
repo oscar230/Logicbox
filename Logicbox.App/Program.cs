@@ -32,7 +32,8 @@ bool MainMenu(Library library)
     {
         $"Quit {NAME}.",
         $"Help.",
-        "Show playlists."
+        "Show playlists.",
+        "Load tags from playlist folder."
     };
     int menuSelection = ConsoleHelper.Selection(menuItems, "What do you want to do?");
     switch (menuSelection)
@@ -50,6 +51,16 @@ bool MainMenu(Library library)
             if (rootPlaylistNode is not null)
             {
                 ShowPlaylistTree(rootPlaylistNode);
+            }
+            break;
+        case 3:
+            // Load tags
+            PlaylistNode? rootPlaylistNode = library.Playlists?.PlaylistNode;
+            if (rootPlaylistNode is not null)
+            {
+                List<PlaylistNode> playlistNodesSelection = new();
+                foreach 
+                ConsoleHelper.Selection();
             }
             break;
         default:

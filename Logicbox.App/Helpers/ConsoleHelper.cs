@@ -32,7 +32,7 @@
         internal static void AccentWriteLine(string text) => WriteLine(text, AccentColor);
         internal static void AccentWrite(string text) => Write(text, AccentColor);
 
-        private static void WriteSelectionList(object[] list)
+        private static void WriteSelectionList<T>(List<T> list)
         {
             for (int i = 0; i < list.Count(); i++)
             {
@@ -48,17 +48,17 @@
             }
         }
 
-        internal static int Selection(Array list, string? selectionText = null)
+        internal static T? Selection<T>(List<T> list, string? selectionText = null)
         {
             const int defaultSelectionValue = -1;
             const string defaultSelectionText = "Make you selection: ";
-            if (list is null || list.Length == 0)
+            if (list.Any())
             {
-                throw new ArgumentNullException(nameof(list));
+                throw new Exception($"{nameof(list)} is empty.");
             }
-            WriteSelectionList((object[])list);
+            WriteSelectionList(list);
             int selection = defaultSelectionValue;
-            while ((selection < 0 || selection > (list.Length - 1)) && list.Length > 1)
+            while ((selection < 0 || selection > (list.Count - 1)) && list.Count > 1)
             {
                 WriteLine("Make your selection using a numerical value. Natural numbers only as displayed in the list above.");
                 Write($"{selectionText ?? defaultSelectionText}: ");
@@ -75,12 +75,12 @@
                     }
                 }
             }
-            if (list.Length == 1)
+            if (list.Count == 1)
             {
                 WriteLine("The selection only contains one item, otherwise you would had the option to choose.");
-                return 0;
+                return list.FirstOrDefault();
             }
-            return selection;
+            return list.ToArray()[selection];
         }
 
         internal static void WriteList(Array list, string? prepend = null, string? append = null)
